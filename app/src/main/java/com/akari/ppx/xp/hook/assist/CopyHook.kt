@@ -21,7 +21,7 @@ import java.lang.Enum.valueOf
 class CopyHook : SwitchHook("copy_item") {
     override fun onHook() {
         val actionType = valueOf(
-            "com.sup.android.i_sharecontroller.model.OptionAction\$OptionActionType".findClass(cl) as Class<Enum<*>>,
+            "com.sup.android.i_sharecontroller.model.OptionAction\$OptionActionType".findClass(cl) as Class<out Enum<*>>,
             "ACTION_PI"
         )
         "com.sup.android.mi.feed.repo.utils.AbsFeedCellUtil\$Companion".replaceMethod(

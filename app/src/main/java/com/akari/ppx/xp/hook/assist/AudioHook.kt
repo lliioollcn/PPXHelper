@@ -25,7 +25,7 @@ import java.lang.Enum.valueOf
 class AudioHook : SwitchHook("save_audio") {
     override fun onHook() {
         val actionType = valueOf(
-            "com.sup.android.i_sharecontroller.model.OptionAction\$OptionActionType".findClass(cl) as Class<Enum<*>>,
+            "com.sup.android.i_sharecontroller.model.OptionAction\$OptionActionType".findClass(cl) as Class<out Enum<*>>,
             "ACTION_LIVE_WALLPAPER"
         )
 

@@ -14,8 +14,8 @@ plugins {
 val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 
-val verCode = 1991
-val verName = "1.9.9.1"
+val verCode = 1992
+val verName = "1.9.9.2"
 
 android {
     compileSdk = 33
@@ -70,7 +70,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         resources {
@@ -115,6 +115,12 @@ dependencies {
     implementation(Google.accompanist.pager.indicators)
     implementation(Libs.reorderable)
     implementation(Libs.mp4parser)
+
+    implementation("org.luckypray:DexKit:1.1.0")
+    implementation("com.tencent:mmkv:1.2.15")
+    implementation("cn.hutool:hutool-all:5.8.11")
+
+
 }
 
 tasks.withType<KotlinCompile>().configureEach {
