@@ -3,11 +3,7 @@
 package com.akari.ppx.xp.hook.purity
 
 import android.content.Context
-import android.util.Base64
 import android.util.Log
-import cn.hutool.http.HttpUtil
-import cn.hutool.json.JSONObject
-import com.google.gson.JsonElement
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,8 +13,8 @@ import com.akari.ppx.xp.Init.cl
 import com.akari.ppx.xp.hook.SwitchHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
-import de.robv.android.xposed.XposedHelpers
 import io.luckypray.dexkit.DexKitBridge
+import java.net.URL
 
 class VideoHook : SwitchHook("save_video") {
 
@@ -40,7 +36,8 @@ class VideoHook : SwitchHook("save_video") {
                                     val videoModel = param.args[1]
                                     var resp: String
 
-                                    fun String.get() = HttpUtil.get(this)
+
+
                                     /*
                                     String(
                                     "com.bytedance.apm.net.DefaultHttpServiceImpl".findClass(cl)
@@ -64,15 +61,15 @@ class VideoHook : SwitchHook("save_video") {
                                             .forEach {
                                                 it.callMethod(
                                                     "setUrl",
-//                                                    // ["data"]["data"]["item"]["origin_video_download"]["url_list"][0]["url"]
-                                                    cn.hutool.json.JSONUtil.parseObj(resp)
-                                                        .getJSONObject("data")
-                                                        .getJSONObject("data")
-                                                        .getJSONObject("item")
-                                                        .getJSONObject("origin_video_download")
-                                                        .getJSONArray("url_list")
-                                                        .getJSONObject(0)
-                                                        .getStr("url")
+                                                    resp.fromJsonElement().asJsonObject
+                                                        //["data"]["data"]["item"]["origin_video_download"]["url_list"][0]["url"]
+                                                        .getAsJsonObject("data")
+                                                        .getAsJsonObject("data")
+                                                        .getAsJsonObject("item")
+                                                        .getAsJsonObject("origin_video_download")
+                                                        .getAsJsonArray("url_list")
+                                                        .get(0).asJsonObject
+                                                        .get("url").asString
                                                 )
                                             }
                                         /*
@@ -211,4 +208,10 @@ class VideoHook : SwitchHook("save_video") {
                 result.get("com.sup.android.video.VideoDownloadHelper")?.get(0)?.name
         }
     }
+}
+
+fun String.get():String{
+    val url = URL(this)
+    val ins = url.openConnection().getInputStream()
+    return String(JavaUtils.readStream(ins))
 }

@@ -58,10 +58,6 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
-    }
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -118,7 +114,7 @@ dependencies {
 
     implementation("org.luckypray:DexKit:1.1.0")
     implementation("com.tencent:mmkv:1.2.15")
-    implementation("cn.hutool:hutool-all:5.8.11")
+    //implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
 
 }

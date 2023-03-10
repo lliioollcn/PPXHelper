@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Process;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,5 +27,17 @@ public class JavaUtils {
             }
         }
         throw new IllegalStateException("No supported ABI in " + Arrays.toString(supported));
+    }
+
+    public static byte[] readStream(InputStream inStream) throws Exception {
+        ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while ((len = inStream.read(buffer)) != -1) {
+            outSteam.write(buffer, 0, len);
+        }
+        outSteam.close();
+        inStream.close();
+        return outSteam.toByteArray();
     }
 }
