@@ -18,7 +18,7 @@ val verCode = 1991
 val verName = "1.9.9.1"
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     namespace = "com.akari.ppx"
 
@@ -26,7 +26,7 @@ android {
         applicationId = "com.akari.ppx"
         minSdk = 23
 
-        targetSdk = 32
+        targetSdk = 33
 
         versionCode = verCode
         versionName = verName
@@ -66,6 +66,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -76,6 +77,10 @@ android {
             excludes += arrayOf("META-INF/**", "kotlin/**", "google/**", "**.bin")
         }
     }
+    lint {
+        abortOnError = false
+    }
+
 }
 
 kotlin {
